@@ -1,14 +1,21 @@
-import { useMyPresence, useOthers } from "@/liveblocks.config";
+import {
+  useBroadcastEvent,
+  useEventListener,
+  useMyPresence,
+  useOthers
+} from "@/liveblocks.config";
 import LiveCursors from "./cursor/LiveCursors";
 import React, { useCallback, useEffect, useState } from "react";
 import CursorChat from "./cursor/CursorChat";
-import { CursorMode, CursorState, Reaction } from "@/types/type";
+import { CursorMode, CursorState, Reaction, ReactionEvent } from "@/types/type";
 import ReactionSelector from "./reaction/ReactionButton";
 import FlyingReaction from "./reaction/FlyingReaction";
+import useInterval from "@/hooks/useInterval";
 
 const Live = () => {
   const others = useOthers();
   const [{ cursor }, updateMyPresence] = useMyPresence() as any;
+  const broadcast = useBroadcastEvent();
 
   const [cursorState, setCursorState] = useState<CursorState>({
     mode: CursorMode.Hidden
@@ -75,6 +82,14 @@ const Live = () => {
     [cursorState.mode]
   );
 
+  const setReactions = useCallback((reaction: string) => {
+    setCursorState({
+      mode: CursorMode.Reaction,
+      reaction,
+      isPressed: false
+    });
+  }, []);
+
   useEffect(() => {
     const onKeyUp = (e: KeyboardEvent) => {
       if (e.key === "/") {
@@ -117,13 +132,63 @@ const Live = () => {
     };
   }, [updateMyPresence]);
 
-  const setReactions = useCallback((reaction: string) => {
-    setCursorState({
-      mode: CursorMode.Reaction,
-      reaction,
-      isPressed: false
+  useInterval(
+    () => {
+      setReaction((prev) => {
+        return prev.filter((p) => p.timestamp < Date.now() - 4000);
+      });
+    },
+    reaction.length ? 1000 : null,
+    reaction.length ? 5000 : null
+  );
+
+  useInterval(
+    () => {
+      if (cursorState.mode === CursorMode.Reaction && cursorState.isPressed) {
+        setReaction((prev) => {
+          return prev.concat([
+            {
+              point: {
+                x: cursor.x,
+                y: cursor.y
+              },
+              value: cursorState.reaction,
+              timestamp: Date.now()
+            }
+          ]);
+        });
+
+        broadcast({
+          x: cursor.x,
+          y: cursor.y,
+          value: cursorState.reaction
+        });
+        console.log("broadcasted event");
+      }
+    },
+    cursorState.mode === CursorMode.Reaction && cursorState.isPressed
+      ? 120
+      : null,
+    2000
+  );
+
+  useEventListener((eventData) => {
+    console.log("in useEventListener: ", eventData.event);
+    const event = eventData.event as ReactionEvent;
+
+    setReaction((prev) => {
+      return prev.concat([
+        {
+          point: {
+            x: event.x,
+            y: event.y
+          },
+          value: event.value,
+          timestamp: Date.now()
+        }
+      ]);
     });
-  }, []);
+  });
 
   return (
     <div
