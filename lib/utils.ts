@@ -15,7 +15,7 @@ const adjectives = [
   "Sunny",
   "Sparkling",
   "Bright",
-  "Shining",
+  "Shining"
 ];
 
 const animals = [
@@ -31,7 +31,7 @@ const animals = [
   "Hippopotamus",
   "Monkey",
   "Panda",
-  "Crocodile",
+  "Crocodile"
 ];
 
 export function cn(...inputs: ClassValue[]) {
@@ -51,49 +51,49 @@ export const getShapeInfo = (shapeType: string) => {
     case "rect":
       return {
         icon: "/assets/rectangle.svg",
-        name: "Rectangle",
+        name: "Rectangle"
       };
 
     case "circle":
       return {
         icon: "/assets/circle.svg",
-        name: "Circle",
+        name: "Circle"
       };
 
     case "triangle":
       return {
         icon: "/assets/triangle.svg",
-        name: "Triangle",
+        name: "Triangle"
       };
 
     case "line":
       return {
         icon: "/assets/line.svg",
-        name: "Line",
+        name: "Line"
       };
 
     case "i-text":
       return {
         icon: "/assets/text.svg",
-        name: "Text",
+        name: "Text"
       };
 
     case "image":
       return {
         icon: "/assets/image.svg",
-        name: "Image",
+        name: "Image"
       };
 
     case "freeform":
       return {
         icon: "/assets/freeform.svg",
-        name: "Free Drawing",
+        name: "Free Drawing"
       };
 
     default:
       return {
         icon: "/assets/rectangle.svg",
-        name: shapeType,
+        name: shapeType
       };
   }
 };
@@ -107,7 +107,7 @@ export const exportToPdf = () => {
   const doc = new jsPDF({
     orientation: "landscape",
     unit: "px",
-    format: [canvas.width, canvas.height],
+    format: [canvas.width, canvas.height]
   });
 
   // get the canvas data url
