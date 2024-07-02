@@ -12,7 +12,11 @@ import ReactionSelector from "./reaction/ReactionButton";
 import FlyingReaction from "./reaction/FlyingReaction";
 import useInterval from "@/hooks/useInterval";
 
-const Live = () => {
+type TLiveProps = {
+  canvasRef: React.RefObject<HTMLCanvasElement>;
+};
+
+const Live = ({ canvasRef }: TLiveProps) => {
   const others = useOthers();
   const [{ cursor }, updateMyPresence] = useMyPresence() as any;
   const broadcast = useBroadcastEvent();
@@ -198,7 +202,8 @@ const Live = () => {
       onPointerUp={handlePointerUp}
       className="h-[100vh] w-full flex justify-center items-center text-center"
     >
-      <h1 className="text-2xl text-white">Liveblocks Figma Clone</h1>
+      {/* <h1 className="text-2xl text-white">Liveblocks Figma Clone</h1> */}
+      <canvas id="canvas" ref={canvasRef} />
 
       {reaction.map((r) => (
         <FlyingReaction
