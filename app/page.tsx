@@ -10,6 +10,7 @@ import {
   handleCanvasMouseDown,
   handleCanvasMouseUp,
   handleCanvasObjectModified,
+  handleCanvasSelectionCreated,
   handleCanvaseMouseMove,
   handleResize,
   initializeFabric,
@@ -39,6 +40,7 @@ export default function Page() {
   // });
   const activeObjectRef = useRef<fabric.Object>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
+  const isEditingRef = useRef(false);
 
   const canvasObjects = useStorage((root) => root.canvasObjects);
   const syncShapeInStorage = useMutation(({ storage }, object) => {
@@ -160,6 +162,14 @@ export default function Page() {
         syncShapeInStorage
       });
       console.log("done in mouse modified: ");
+    });
+
+    canvas.on("selection:created", (options) => {
+      handleCanvasSelectionCreated({
+        options,
+        isEditingRef,
+        setElementAttributes
+      });
     });
 
     window.addEventListener("resize", () => {
