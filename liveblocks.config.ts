@@ -6,7 +6,19 @@ const client = createClient({
   throttle: 16,
   publicApiKey: process.env.NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_KEY!,
   async resolveUsers({ userIds }) {
-    return [];
+    // Used only for Comments. Return a list of user information retrieved
+    // from `userIds`. This info is used in comments, mentions etc.
+    // const usersData = await __fetchUsersFromDB__(userIds);
+    //
+    // return usersData.map((userData) => ({
+    //   name: userData.name,
+    //   avatar: userData.avatar.src
+    // }));
+    return userIds.map((uid, idx) => ({
+      name: `user-${idx + 1}`,
+      avatar:
+        "https://media.istockphoto.com/id/1300845620/vector/user-icon-flat-isolated-on-white-background-user-symbol-vector-illustration.jpg?s=612x612&w=0&k=20&c=yBeyba0hUkh14_jgv1OKqIH0CCSWU_4ckRkAoy2p73o="
+    }));
   },
   async resolveMentionSuggestions({ text, roomId }) {
     return [];
