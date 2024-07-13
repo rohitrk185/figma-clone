@@ -15,7 +15,7 @@ const FlyingReaction = ({ x, y, timestamp, value }: Props) => (
     style={{ left: x, top: y }}
   >
     <div className={styles["leftRight" + (timestamp % 3)]}>
-      <div className='-translate-x-1/2 -translate-y-1/2 transform'>{value}</div>
+      <div className="-translate-x-1/2 -translate-y-1/2 transform">{value}</div>
     </div>
   </div>
 );

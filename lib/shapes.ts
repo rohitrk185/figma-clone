@@ -5,7 +5,7 @@ import {
   CustomFabricObject,
   ElementDirection,
   ImageUpload,
-  ModifyShape,
+  ModifyShape
 } from "@/types/type";
 
 export const createRectangle = (pointer: PointerEvent) => {
@@ -15,7 +15,7 @@ export const createRectangle = (pointer: PointerEvent) => {
     width: 100,
     height: 100,
     fill: "#aabbcc",
-    objectId: uuidv4(),
+    objectId: uuidv4()
   } as CustomFabricObject<fabric.Rect>);
 
   return rect;
@@ -28,7 +28,7 @@ export const createTriangle = (pointer: PointerEvent) => {
     width: 100,
     height: 100,
     fill: "#aabbcc",
-    objectId: uuidv4(),
+    objectId: uuidv4()
   } as CustomFabricObject<fabric.Triangle>);
 };
 
@@ -38,7 +38,7 @@ export const createCircle = (pointer: PointerEvent) => {
     top: pointer.y,
     radius: 100,
     fill: "#aabbcc",
-    objectId: uuidv4(),
+    objectId: uuidv4()
   } as any);
 };
 
@@ -48,7 +48,7 @@ export const createLine = (pointer: PointerEvent) => {
     {
       stroke: "#aabbcc",
       strokeWidth: 2,
-      objectId: uuidv4(),
+      objectId: uuidv4()
     } as CustomFabricObject<fabric.Line>
   );
 };
@@ -94,7 +94,7 @@ export const handleImageUpload = ({
   file,
   canvas,
   shapeRef,
-  syncShapeInStorage,
+  syncShapeInStorage
 }: ImageUpload) => {
   const reader = new FileReader();
 
@@ -136,7 +136,7 @@ export const modifyShape = ({
   property,
   value,
   activeObjectRef,
-  syncShapeInStorage,
+  syncShapeInStorage
 }: ModifyShape) => {
   const selectedElement = canvas.getActiveObject();
 
@@ -145,7 +145,7 @@ export const modifyShape = ({
   // if  property is width or height, set the scale of the selected element
   if (property === "width") {
     selectedElement.set("scaleX", 1);
-    selectedElement.set("width", value);  
+    selectedElement.set("width", value);
   } else if (property === "height") {
     selectedElement.set("scaleY", 1);
     selectedElement.set("height", value);
@@ -163,7 +163,7 @@ export const modifyShape = ({
 export const bringElement = ({
   canvas,
   direction,
-  syncShapeInStorage,
+  syncShapeInStorage
 }: ElementDirection) => {
   if (!canvas) return;
 

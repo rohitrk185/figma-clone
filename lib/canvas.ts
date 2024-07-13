@@ -95,10 +95,10 @@ export const handleCanvasMouseDown = ({
     );
 
     // if shapeRef is not null, add it to canvas
-    // if (shapeRef.current) {
-    //   // add: http://fabricjs.com/docs/fabric.Canvas.html#add
-    //   canvas.add(shapeRef.current);
-    // }
+    if (shapeRef.current) {
+      // add: http://fabricjs.com/docs/fabric.Canvas.html#add
+      canvas.add(shapeRef.current);
+    }
   }
 };
 
@@ -187,16 +187,16 @@ export const handleCanvasMouseUp = ({
   syncShapeInStorage(shapeRef.current);
 
   // set everything to null
-  // shapeRef.current = null;
-  // activeObjectRef.current = null;
-  // selectedShapeRef.current = null;
+  shapeRef.current = null;
+  activeObjectRef.current = null;
+  selectedShapeRef.current = null;
 
   // if canvas is not in drawing mode, set active element to default nav element after 700ms
-  // if (!canvas.isDrawingMode) {
-  //   setTimeout(() => {
-  //     setActiveElement(defaultNavElement);
-  //   }, 700);
-  // }
+  if (!canvas.isDrawingMode) {
+    setTimeout(() => {
+      setActiveElement(defaultNavElement);
+    }, 700);
+  }
 };
 
 // update shape in storage when object is modified
@@ -384,11 +384,13 @@ export const renderCanvas = ({
 // resize canvas dimensions on window resize
 export const handleResize = ({ canvas }: { canvas: fabric.Canvas | null }) => {
   const canvasElement = document.getElementById("canvas");
-  if (!canvasElement || !canvas) return;
+  if (!canvasElement) return;
 
-  canvas?.setDimensions({
-    width: canvasElement?.clientWidth,
-    height: canvasElement?.clientHeight
+  if (!canvas) return;
+
+  canvas.setDimensions({
+    width: canvasElement.clientWidth,
+    height: canvasElement.clientHeight
   });
 };
 

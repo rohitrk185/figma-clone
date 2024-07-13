@@ -41,7 +41,7 @@ export const handlePaste = (
                 left: enlivenedObj.left || 0 + 20,
                 top: enlivenedObj.top || 0 + 20,
                 objectId: uuidv4(),
-                fill: "#aabbcc",
+                fill: "#aabbcc"
               } as CustomFabricObject<any>);
 
               canvas.add(enlivenedObj);
@@ -84,7 +84,7 @@ export const handleKeyDown = ({
   undo,
   redo,
   syncShapeInStorage,
-  deleteShapeFromStorage,
+  deleteShapeFromStorage
 }: {
   e: KeyboardEvent;
   canvas: fabric.Canvas | any;

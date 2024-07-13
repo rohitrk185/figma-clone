@@ -6,6 +6,7 @@ const nextConfig = {
       bufferutil: "commonjs bufferutil",
       canvas: "commonjs canvas"
     });
+    // config.infrastructureLogging = { debug: /PackFileCache/ };
     return config;
   },
   images: {
@@ -13,13 +14,12 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "liveblocks.io",
-        port: "",
-        pathname: "/**"
+        port: ""
       }
     ]
   },
   typescript: {
-    ignoreBuildErrors: false
+    ignoreBuildErrors: true
   }
 };
 

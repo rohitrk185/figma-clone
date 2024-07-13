@@ -6,7 +6,7 @@ import {
   useCallback,
   useEffect,
   useRef,
-  useState,
+  useState
 } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import * as Portal from "@radix-ui/react-portal";
@@ -86,7 +86,7 @@ export const NewThread = ({ children }: Props) => {
       setCreatingCommentState("placed");
       setComposerCoords({
         x: e.clientX,
-        y: e.clientY,
+        y: e.clientY
       });
     };
 
@@ -182,8 +182,8 @@ export const NewThread = ({ children }: Props) => {
           x,
           y,
           resolved: false,
-          zIndex: maxZIndex + 1,
-        },
+          zIndex: maxZIndex + 1
+        }
       });
 
       setComposerCoords(null);
@@ -223,10 +223,10 @@ export const NewThread = ({ children }: Props) => {
          * Portal.Root: https://www.radix-ui.com/primitives/docs/utilities/portal
          */
         <Portal.Root
-          className='absolute left-0 top-0'
+          className="absolute left-0 top-0"
           style={{
             pointerEvents: allowUseComposer ? "initial" : "none",
-            transform: `translate(${composerCoords.x}px, ${composerCoords.y}px)`,
+            transform: `translate(${composerCoords.x}px, ${composerCoords.y}px)`
           }}
           data-hide-cursors
         >

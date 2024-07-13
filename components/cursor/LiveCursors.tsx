@@ -1,8 +1,8 @@
-// import { LiveCursorProps } from "@/types/type";
 import Cursor from "./Cursor";
 import { COLORS } from "@/constants";
 import { useOthers } from "@/liveblocks.config";
 
+// display all other live cursors
 const LiveCursors = () => {
   const others = useOthers();
   return others.map(({ connectionId, presence }) => {
